@@ -1,0 +1,30 @@
+{% extends 'main_content.html' %}
+
+{% block content %}
+    <form class="container" method="POST">
+        {% csrf_token %}
+        <!-- Name input -->
+        <div class="form-outline mb-4">
+            <input type="text" name="title" placeholder="Title" value="{{ task.title }}" class="form-control" />
+        </div>
+
+        <div class="form-outline mb-4">
+            <select class="form-select form-control form-select-sm" aria-label=".form-select-sm example" name="task_status">
+                <option value="status" {% if task.status == "status" %}selected{% endif %}>Status</option>
+                <option value="P" {% if task.status == "P" %}selected{% endif %}>Pending</option>
+                <option value="C" {% if task.status == "C" %}selected{% endif %}>Completed</option>
+                <option value="I" {% if task.status == "I" %}selected{% endif %}>In Progress</option>
+            </select>
+        </div>
+        <!-- Message input -->
+        <div class="form-outline mb-4">
+            <textarea class="form-control" name="description" rows="4">{{ task.description }}</textarea>
+        </div>
+
+        <div class="form-outline mb-4">
+            <input type="date" name="due_date" placeholder="Title" class="form-control" value="{{ task.due_date|date:'Y-m-d' }}" />
+        </div>
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block mb-4">Create Task</button>
+    </form>
+{% endblock content %}
